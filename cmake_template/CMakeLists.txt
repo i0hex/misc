@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION x.xx)
 
 # Project name and version
-project(MyProject VERSION x.x.x)
+project(MyProject VERSION 1.0.0 LANGUAGES C CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD xx)
@@ -17,19 +17,26 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Include directories
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# set(SOURCES
+#   src/main.cpp
+# )
 
-# Collect all source files
-file(GLOB_RECURSE SOURCES
-    ${PROJECT_SOURCE_DIR}/src/*.cpp
+# Collect source files
+file(GLOB SOURCES
+  src/*.cpp
 )
+
+# file(GLOB_RECURSE SOURCES
+#     src/*.cpp
+# )
 
 # Add executable or library target
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Add libraries if needed
-# target_link_libraries(${PROJECT_NAME} PRIVATE SomeLibrary)
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+  include
+)
 
 # Installation rules
 install(TARGETS ${PROJECT_NAME}
@@ -37,7 +44,3 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
 )
-
-# Testing setup (optional)
-enable_testing()
-add_test(NAME ExampleTest COMMAND ${PROJECT_NAME})
